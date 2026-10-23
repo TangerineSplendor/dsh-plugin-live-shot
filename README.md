@@ -6,7 +6,7 @@ Windows 实时桌面截图插件：全局热键、窗口识别、选区调整、
 
 [Windows ZIP / Releases](https://github.com/TangerineSplendor/dsh-screenshot/releases) · [npm](https://www.npmjs.com/package/dsh-plugin-live-shot) · [Market submission](https://github.com/2BingLing/dsh-market/issues/283)
 
-**Beta: 0.7.0-beta.3. Windows 10/11 x64, official DSH desktop only.** Tested on the developer's machine with isolated profiles; compatibility on other machines still needs feedback. macOS, Linux, browser-only DSH and remote Hosts are unsupported.
+**Beta: 0.7.0-beta.4. Windows 10/11 x64, official DSH desktop only.** Tested on the developer's machine with isolated profiles; compatibility on other machines still needs feedback. macOS, Linux, browser-only DSH and remote Hosts are unsupported.
 
 ## Install / 安装
 
@@ -17,7 +17,7 @@ Install and open the official Windows DSH desktop app at least once. Keep DSH ru
 **npm, for users who already have Node.js:**
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.3 dsh-shot install
+npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.4 dsh-shot install
 ```
 
 Use `dsh-shot install -DshExe "C:\Apps\DeepSeek Harness\DeepSeek Harness.exe"` if automatic detection fails. `-ProfileDir`, `-DshHome` and `-DataDir` support non-default installations. Then fully quit and reopen DSH.
@@ -46,7 +46,7 @@ ZIP, npm and standard bundle installations all use `dsh-plugin-live-shot` as the
 For the explicit installer, run `uninstall.bat`, or:
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.3 dsh-shot uninstall
+npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.4 dsh-shot uninstall
 ```
 
 Then completely restart DSH. Default removal retains settings and local runtime. The optional `-RemoveData` also deletes the dedicated data directory, including images saved in its `captures` folder. For a non-default profile, pass the same `-ProfileDir` used to install. If installed as a standard DSH bundle, remove it through that bundle manager instead.

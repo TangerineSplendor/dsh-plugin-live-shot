@@ -1,6 +1,6 @@
 # DSH Shot — Windows 可移植测试包
 
-版本：0.7.0-beta.3。适用于 **Windows 10/11 x64 的官方 DeepSeek Harness 桌面版**。需要先安装并打开过一次 DSH。macOS、Linux、纯浏览器、远程服务器 Host 和其他桌面壳未验证。
+版本：0.7.0-beta.4。适用于 **Windows 10/11 x64 的官方 DeepSeek Harness 桌面版**。需要先安装并打开过一次 DSH。macOS、Linux、纯浏览器、远程服务器 Host 和其他桌面壳未验证。
 
 ## 安装
 

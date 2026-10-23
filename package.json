@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-live-shot",
-  "version": "0.7.0-beta.3",
+  "version": "0.7.0-beta.4",
   "license": "MIT",
   "author": "TangerineSplendor",
   "repository": { "type": "git", "url": "git+https://github.com/TangerineSplendor/dsh-screenshot.git" },
