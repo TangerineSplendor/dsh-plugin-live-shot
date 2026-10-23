@@ -1,3 +1,9 @@
+## 发布与申请状态（2026-10-23）
+
+- GitHub Release 已发布：`v0.7.0-beta.2`。
+- npm 已发布：https://www.npmjs.com/package/dsh-plugin-live-shot/v/0.7.0-beta.2 。注册表与实际下载的 TGZ 均已核对，和测试通过的 Release TGZ 完全一致。
+- DSH Market 申请已提交：https://github.com/2BingLing/dsh-market/issues/283 。已带 `submission` 标签，机器人已确认收到；仍待收录处理，未宣称已获批准。
+
 ## 插件信息
 
 - **GitHub 仓库地址**：https://github.com/TangerineSplendor/dsh-screenshot

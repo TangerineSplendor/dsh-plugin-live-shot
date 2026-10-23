@@ -4,6 +4,8 @@ Windows screenshot and annotation plugin for DeepSeek Harness. Select the **live
 
 Windows 实时桌面截图插件：全局热键、窗口识别、选区调整、标注，以及直接插入 DSH 输入框。
 
+[Windows ZIP / Releases](https://github.com/TangerineSplendor/dsh-screenshot/releases) · [npm](https://www.npmjs.com/package/dsh-plugin-live-shot) · [Market submission](https://github.com/2BingLing/dsh-market/issues/283)
+
 **Beta: 0.7.0-beta.2. Windows 10/11 x64, official DSH desktop only.** Tested on the developer's machine with isolated profiles; compatibility on other machines still needs feedback. macOS, Linux, browser-only DSH and remote Hosts are unsupported.
 
 ## Install / 安装
