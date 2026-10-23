@@ -1,0 +1,10 @@
+.secrets/
+.env
+.browser-profile*
+.runtime/
+research/
+.portable_data/
+.release_test/
+.install.json
+dist/
+.public_release/

@@ -1,0 +1,64 @@
+{
+  "name": "dsh-plugin-live-shot",
+  "version": "0.7.0-beta.2",
+  "license": "MIT",
+  "author": "TangerineSplendor",
+  "repository": { "type": "git", "url": "git+https://github.com/TangerineSplendor/dsh-screenshot.git" },
+  "homepage": "https://github.com/TangerineSplendor/dsh-screenshot#readme",
+  "bugs": { "url": "https://github.com/TangerineSplendor/dsh-screenshot/issues" },
+  "keywords": ["dsh-plugin", "deepseek-harness", "screenshot", "windows", "annotation"],
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/", "tag": "beta" },
+  "bin": { "dsh-shot": "./bin/dsh-shot.cjs" },
+  "os": ["win32"],
+  "cpu": ["x64"],
+  "type": "module",
+  "description": "Screenshot editor that lands the crop straight in the composer draft.",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "helper.js",
+    "ensure_runtime.js",
+    "prepare_runtime.ps1",
+    "helper_main.cjs",
+    "electron_controller.js",
+    "selection.js",
+    "settings.js",
+    "runtime_paths.cjs",
+    "client.js",
+    "worker.js",
+    "capture_worker.ps1",
+    "overlay_preload.cjs",
+    "overlay.html",
+    "overlay.css",
+    "overlay.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "bin/*.cjs",
+    "install.ps1",
+    "install_common.ps1",
+    "install.bat",
+    "uninstall.ps1",
+    "uninstall.bat",
+    "portable_readme.md",
+    "THIRD_PARTY_NOTICES.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  }
+}
