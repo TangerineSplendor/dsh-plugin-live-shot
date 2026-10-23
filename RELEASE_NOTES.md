@@ -1,5 +1,7 @@
 # DSH Shot 0.7.0-beta.4
 
+**下载提醒：请使用本页的 `dsh-shot-0.7.0-beta.4-windows-x64.zip`，安装时应显示 `Installed 0.7.0-beta.4`。beta.2 安装器有相机按钮及插图 Client 加载缺陷，重新下载旧版本仍会复现。npm 注册表目前仍是 beta.2，暂时请用本页 ZIP 或 TGZ。**
+
 The live selector now paints a one-alpha-level input surface. On Windows, fully transparent regions can fail native mouse hit testing and let a selection drag hit the application underneath. This almost invisible backdrop keeps mouse input on the selector while the desktop remains live. It is hidden before capturing the selected region; no full-screen preview or early capture was added.
 
 Fix for beta.2 ZIP/explicit-installer users: the global hotkey worked, but the composer camera was absent and completed screenshots stayed queued. The installer used the legacy Loader name while package.json had the public name, so DSH silently skipped the Client half.
@@ -23,10 +25,10 @@ Open DSH once, keep it running, extract the Windows ZIP and double-click install
 With Node.js, the alternative is:
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.4 dsh-shot install
+npx --yes --package=./dsh-plugin-live-shot-0.7.0-beta.4.tgz dsh-shot install
 ```
 
-The npm registry publication may follow the GitHub Release; the attached .tgz can also be used with `npx --package=./dsh-plugin-live-shot-0.7.0-beta.4.tgz dsh-shot install`.
+Download the attached `.tgz` first and run the command from its folder. The npm registry still serves beta.2; an unversioned registry install does not include this fix.
 
 ## Restart checks
 

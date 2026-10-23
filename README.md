@@ -4,7 +4,9 @@ Windows screenshot and annotation plugin for DeepSeek Harness. Select the **live
 
 Windows 实时桌面截图插件：全局热键、窗口识别、选区调整、标注，以及直接插入 DSH 输入框。
 
-[Windows ZIP / Releases](https://github.com/TangerineSplendor/dsh-screenshot/releases) · [npm](https://www.npmjs.com/package/dsh-plugin-live-shot) · [Market submission](https://github.com/2BingLing/dsh-market/issues/283)
+[Download Windows ZIP 0.7.0-beta.4](https://github.com/TangerineSplendor/dsh-screenshot/releases/download/v0.7.0-beta.4/dsh-shot-0.7.0-beta.4-windows-x64.zip) · [Release notes](https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.4) · [Market submission](https://github.com/2BingLing/dsh-market/issues/283)
+
+**请下载文件名含 `0.7.0-beta.4` 的 ZIP。beta.2 安装器存在相机按钮和插图无法加载的问题；重新下载 beta.2 仍会复现。npm 注册表目前仍是 beta.2，请暂时使用下面的 ZIP 或此 Release 附带的 TGZ，不要使用未指定版本的 npx 安装命令。**
 
 **Beta: 0.7.0-beta.4. Windows 10/11 x64, official DSH desktop only.** Tested on the developer's machine with isolated profiles; compatibility on other machines still needs feedback. macOS, Linux, browser-only DSH and remote Hosts are unsupported.
 
@@ -12,12 +14,12 @@ Windows 实时桌面截图插件：全局热键、窗口识别、选区调整、
 
 Install and open the official Windows DSH desktop app at least once. Keep DSH running during setup so the installer can find its executable.
 
-**ZIP, no additional Node.js required:** download the Windows ZIP from [Releases](https://github.com/TangerineSplendor/dsh-screenshot/releases), extract it completely and run `install.bat`. If prompted, select your installed `DeepSeek Harness.exe`. Quit DSH completely from its tray menu and reopen it.
+**ZIP, no additional Node.js required:** download [dsh-shot-0.7.0-beta.4-windows-x64.zip](https://github.com/TangerineSplendor/dsh-screenshot/releases/download/v0.7.0-beta.4/dsh-shot-0.7.0-beta.4-windows-x64.zip), extract it completely and run `install.bat`. The installer must print `Installed 0.7.0-beta.4`. If prompted, select your installed `DeepSeek Harness.exe`. Quit DSH completely from its tray menu and reopen it. Do not reuse a beta.2 ZIP or its extracted installer.
 
-**npm, for users who already have Node.js:**
+**Node.js alternative:** download `dsh-plugin-live-shot-0.7.0-beta.4.tgz` from the same Release, then run from its download folder:
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.4 dsh-shot install
+npx --yes --package=./dsh-plugin-live-shot-0.7.0-beta.4.tgz dsh-shot install
 ```
 
 Use `dsh-shot install -DshExe "C:\Apps\DeepSeek Harness\DeepSeek Harness.exe"` if automatic detection fails. `-ProfileDir`, `-DshHome` and `-DataDir` support non-default installations. Then fully quit and reopen DSH.
@@ -46,7 +48,7 @@ ZIP, npm and standard bundle installations all use `dsh-plugin-live-shot` as the
 For the explicit installer, run `uninstall.bat`, or:
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.4 dsh-shot uninstall
+npx --yes --package=./dsh-plugin-live-shot-0.7.0-beta.4.tgz dsh-shot uninstall
 ```
 
 Then completely restart DSH. Default removal retains settings and local runtime. The optional `-RemoveData` also deletes the dedicated data directory, including images saved in its `captures` folder. For a non-default profile, pass the same `-ProfileDir` used to install. If installed as a standard DSH bundle, remove it through that bundle manager instead.

@@ -1,8 +1,8 @@
 ## 发布与申请状态（2026-10-23）
 
-更新：`0.7.0-beta.3` 修复 beta.2 ZIP 安装后相机消失、截图完成无人接收的问题。安装器现统一 Loader 配置、目录和 manifest 的公开包名，并自动迁移旧名称、保留设置；请使用新版安装器后完整重启 DSH。后续 Release：https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.3 。
+更新：请使用 `0.7.0-beta.4` GitHub ZIP。beta.2 ZIP 安装后相机消失、截图完成无人接收的问题已修复；安装器现统一 Loader 配置、目录和 manifest 的公开包名。Release：https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.4 。npm 注册表仍为 beta.2，不能把市场/npm 安装等同于已获得新版修复。
 
-- GitHub Release 已发布：`v0.7.0-beta.2`。
+- GitHub Release 已发布：`v0.7.0-beta.4`。
 - npm 已发布：https://www.npmjs.com/package/dsh-plugin-live-shot/v/0.7.0-beta.2 。注册表与实际下载的 TGZ 均已核对，和测试通过的 Release TGZ 完全一致。
 - DSH Market 申请已提交：https://github.com/2BingLing/dsh-market/issues/283 。已带 `submission` 标签，机器人已确认收到；仍待收录处理，未宣称已获批准。
 
@@ -16,8 +16,8 @@
 
 ## 安装与版本
 
-- 版本：`0.7.0-beta.2`，MIT。
-- Release：https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.2
+- GitHub ZIP 版本：`0.7.0-beta.4`，MIT。安装完成应显示此版本。
+- Release：https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.4
 - Windows 用户首选下载 Release 的 ZIP，完整解压，双击 `install.bat`。需要已安装并打开过的官方 Windows x64 DSH；找不到时选择 `DeepSeek Harness.exe`。完成后从托盘完整退出 DSH 并重新打开。
 - ZIP 无需额外 Node、管理员权限或下载运行时。运行时从用户本机 DSH 准备，不在包中分发 DSH/Electron 二进制或个人配置。
 - 附带 `.tgz` 提供 npm 格式的同一插件及 `dsh-shot install` / `uninstall` 入口；详情见 README。标准 bundle 安装声明在根目录 `package.json` 的 `dsh.bundle` 和 `cordis.patch.yml`。
