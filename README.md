@@ -6,7 +6,7 @@ Windows 实时桌面截图插件：全局热键、窗口识别、选区调整、
 
 [Windows ZIP / Releases](https://github.com/TangerineSplendor/dsh-screenshot/releases) · [npm](https://www.npmjs.com/package/dsh-plugin-live-shot) · [Market submission](https://github.com/2BingLing/dsh-market/issues/283)
 
-**Beta: 0.7.0-beta.2. Windows 10/11 x64, official DSH desktop only.** Tested on the developer's machine with isolated profiles; compatibility on other machines still needs feedback. macOS, Linux, browser-only DSH and remote Hosts are unsupported.
+**Beta: 0.7.0-beta.3. Windows 10/11 x64, official DSH desktop only.** Tested on the developer's machine with isolated profiles; compatibility on other machines still needs feedback. macOS, Linux, browser-only DSH and remote Hosts are unsupported.
 
 ## Install / 安装
 
@@ -17,12 +17,12 @@ Install and open the official Windows DSH desktop app at least once. Keep DSH ru
 **npm, for users who already have Node.js:**
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.2 dsh-shot install
+npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.3 dsh-shot install
 ```
 
 Use `dsh-shot install -DshExe "C:\Apps\DeepSeek Harness\DeepSeek Harness.exe"` if automatic detection fails. `-ProfileDir`, `-DshHome` and `-DataDir` support non-default installations. Then fully quit and reopen DSH.
 
-The explicit installer retains the original `@local/dsh-shot` profile slot for upgrade compatibility. Its public package identity is `dsh-plugin-live-shot`. Existing settings are retained. A standard npm/DSH bundle installation uses the public name from `cordis.patch.yml` and prepares the local runtime on first startup; if automatic discovery fails, use the explicit installer instead. Choose one installation route per profile to avoid loading two copies.
+ZIP, npm and standard bundle installations all use `dsh-plugin-live-shot` as the installed directory, Loader entry, manifest name and Client module ID. The installer migrates the old `@local/dsh-shot` entry while preserving its settings and custom data directory. Beta.2 ZIP installations had a name mismatch that prevented the camera and image delivery from loading; upgrade with this installer and completely restart DSH. Standard bundle installations prepare the local runtime on first startup; if automatic discovery fails, use the explicit installer instead.
 
 安装无需管理员权限。ZIP 安装不需要额外 Node 或网络下载；npm 方式需要 Node 和网络获取插件包。辅助运行时均从你本机的 DSH 复制，首次约需数百 MB 空间，不修改 DSH 程序目录。DSH 升级后重新运行安装器。
 
@@ -46,7 +46,7 @@ The explicit installer retains the original `@local/dsh-shot` profile slot for u
 For the explicit installer, run `uninstall.bat`, or:
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.2 dsh-shot uninstall
+npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.3 dsh-shot uninstall
 ```
 
 Then completely restart DSH. Default removal retains settings and local runtime. The optional `-RemoveData` also deletes the dedicated data directory, including images saved in its `captures` folder. For a non-default profile, pass the same `-ProfileDir` used to install. If installed as a standard DSH bundle, remove it through that bundle manager instead.
@@ -68,6 +68,7 @@ No npm dependencies or build step. Runtime files and machine-specific configurat
 ```powershell
 node --experimental-vm-modules tests/host_test.mjs
 node tests/selection_settings_test.mjs
+node tests/client_install_test.mjs
 node tests/worker_test.mjs
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_portable.ps1
 ```

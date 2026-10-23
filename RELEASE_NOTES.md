@@ -1,6 +1,10 @@
-# DSH Shot 0.7.0-beta.2
+# DSH Shot 0.7.0-beta.3
 
-First public beta for the official Windows x64 DeepSeek Harness desktop app.
+Fix for beta.2 ZIP/explicit-installer users: the global hotkey worked, but the composer camera was absent and completed screenshots stayed queued. The installer used the legacy Loader name while package.json had the public name, so DSH silently skipped the Client half.
+
+All installation paths now use dsh-plugin-live-shot consistently. The installer migrates the legacy entry and preserves settings and custom data paths. No uninstall is required: run install.bat from this version, fully quit DSH from its tray menu, and reopen it.
+
+The Windows CI now runs the actual installer in an isolated fixture and checks Loader/manifest/Client identity, camera registration, completed PNG delivery and acknowledgement. Local migration tests also reproduce the beta.2 failure before verifying the upgrade.
 
 - Live desktop selection with capture only after mouse release; native-resolution region PNG.
 - Composer camera button and configurable global shortcut (default Ctrl+Shift+X).
@@ -17,10 +21,10 @@ Open DSH once, keep it running, extract the Windows ZIP and double-click install
 With Node.js, the alternative is:
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.2 dsh-shot install
+npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.3 dsh-shot install
 ```
 
-The npm registry publication may follow the GitHub Release; the attached .tgz can also be used with `npx --package=./dsh-plugin-live-shot-0.7.0-beta.2.tgz dsh-shot install`.
+The npm registry publication may follow the GitHub Release; the attached .tgz can also be used with `npx --package=./dsh-plugin-live-shot-0.7.0-beta.3.tgz dsh-shot install`.
 
 ## Restart checks
 

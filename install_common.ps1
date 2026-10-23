@@ -21,9 +21,10 @@ function Write-ShotText([string]$FilePath, [string]$Text) {
   }
   [IO.File]::WriteAllText($FilePath, $Text, [Text.UTF8Encoding]::new($bom))
 }
-function Assert-ShotPackage([string]$ProfilePath) {
+function Assert-ShotPackage([string]$ProfilePath, [switch]$Legacy) {
   $root = [IO.Path]::GetFullPath($ProfilePath).TrimEnd('\')
-  $target = [IO.Path]::GetFullPath((Join-Path $root 'node_modules\@local\dsh-shot'))
+  $slot = if ($Legacy) { 'node_modules\@local\dsh-shot' } else { 'node_modules\dsh-plugin-live-shot' }
+  $target = [IO.Path]::GetFullPath((Join-Path $root $slot))
   if (-not $target.StartsWith($root + '\', [StringComparison]::OrdinalIgnoreCase)) { throw 'Unsafe package path' }
   if (Test-Path -LiteralPath $target) {
     $item = Get-Item -LiteralPath $target -Force
@@ -77,12 +78,12 @@ function Initialize-ShotData([string]$DataPath, [string]$ProfilePath) {
   if ((Test-Path -LiteralPath $dataRoot) -and ((Get-Item -LiteralPath $dataRoot -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) { throw 'Refusing a linked data directory' }
   if (Test-Path -LiteralPath $marker) {
     $owner = Read-ShotText $marker | ConvertFrom-Json
-    if ($owner.package -ne '@local/dsh-shot' -or $owner.profileDir -ne $ProfilePath) { throw 'Data directory belongs to another installation' }
+    if ($owner.package -notin '@local/dsh-shot', 'dsh-plugin-live-shot' -or $owner.profileDir -ne $ProfilePath) { throw 'Data directory belongs to another installation' }
   } elseif ((Test-Path -LiteralPath $dataRoot) -and (Get-ChildItem -LiteralPath $dataRoot -Force | Select-Object -First 1)) {
     throw 'Data directory is not empty and has no ownership marker; choose an empty directory'
   }
   New-Item -ItemType Directory -Force -Path $dataRoot | Out-Null
-  Write-ShotText $marker ((@{ package='@local/dsh-shot'; profileDir=$ProfilePath } | ConvertTo-Json) + "`n")
+  Write-ShotText $marker ((@{ package='dsh-plugin-live-shot'; profileDir=$ProfilePath } | ConvertTo-Json) + "`n")
   return $dataRoot
 }
 function Initialize-ShotRuntime([string]$DshPath, [string]$DataPath) {

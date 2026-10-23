@@ -21,6 +21,8 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           node tests/selection_settings_test.mjs
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          node tests/client_install_test.mjs
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - name: Check JavaScript and Windows PowerShell sources
         shell: powershell
         run: |

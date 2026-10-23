@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawn } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
+import { verifyInstalledClient } from './client_install_test.mjs';
 
 const project = fileURLToPath(new URL('..', import.meta.url));
 const tgz = path.resolve(process.argv[2]);
@@ -23,11 +24,12 @@ for (const forbidden of ['.install.json', '.runtime', '.git', 'HANDOFF.md', 'tes
   await assert.rejects(fs.stat(path.join(source, forbidden)), { code: 'ENOENT' });
 }
 ok(await run(process.execPath, [path.join(source, 'bin/dsh-shot.cjs'), '--help']));
-// Explicit npm command installs the same tested, backward-compatible local slot.
+// Explicit installer and standard bundles must use the same package identity.
 const profile = path.join(root, 'explicit profile');
 await fs.mkdir(profile); await fs.writeFile(path.join(profile, 'package.json'), '{}');
 ok(await run(process.execPath, [path.join(source, 'bin/dsh-shot.cjs'), 'install', '-ProfileDir', profile]));
-assert.equal(JSON.parse(await fs.readFile(path.join(profile, 'node_modules/@local/dsh-shot/package.json'), 'utf8')).name, manifest.name);
+assert.equal(JSON.parse(await fs.readFile(path.join(profile, 'node_modules/dsh-plugin-live-shot/package.json'), 'utf8')).name, manifest.name);
+await verifyInstalledClient(path.join(profile, 'node_modules/dsh-plugin-live-shot'), profile);
 ok(await run(process.execPath, [path.join(source, 'bin/dsh-shot.cjs'), 'uninstall', '-ProfileDir', profile, '-RemoveData']));
 // A standard bundle install has no private config or pre-copied runtime.
 const bundleProfile = path.join(root, 'bundle profile');

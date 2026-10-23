@@ -1,6 +1,6 @@
 # DSH Shot — Windows 可移植测试包
 
-版本：0.7.0-beta.2。适用于 **Windows 10/11 x64 的官方 DeepSeek Harness 桌面版**。需要先安装并打开过一次 DSH。macOS、Linux、纯浏览器、远程服务器 Host 和其他桌面壳未验证。
+版本：0.7.0-beta.3。适用于 **Windows 10/11 x64 的官方 DeepSeek Harness 桌面版**。需要先安装并打开过一次 DSH。macOS、Linux、纯浏览器、远程服务器 Host 和其他桌面壳未验证。
 
 ## 安装
 
@@ -10,7 +10,7 @@
 
 不需要额外安装 Node.js、不需要管理员权限、不下载依赖。脚本使用 Windows 自带 PowerShell 5.1，并从本机 DSH 复制截图辅助运行时，首次安装约占用数百 MB 本地空间。测试包只包含插件代码，不包含别人的 DSH 程序或个人配置。
 
-安装后可以删除解压目录。插件默认装到 `<DSH_HOME>/profiles/desktop/node_modules/@local/dsh-shot`；运行时、设置和临时文件保存在该 profile 的 `.dsh-shot-data`，不依赖解压路径，不要求任何特定盘符。`DSH_HOME` 未设置时使用用户目录下的 `.dsh`。
+安装后可以删除解压目录。插件默认装到 `<DSH_HOME>/profiles/desktop/node_modules/dsh-plugin-live-shot`；运行时、设置和临时文件保存在该 profile 的 `.dsh-shot-data`，不依赖解压路径，不要求任何特定盘符。`DSH_HOME` 未设置时使用用户目录下的 `.dsh`。
 
 ## 使用
 

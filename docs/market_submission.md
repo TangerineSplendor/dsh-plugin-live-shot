@@ -1,5 +1,7 @@
 ## 发布与申请状态（2026-10-23）
 
+更新：`0.7.0-beta.3` 修复 beta.2 ZIP 安装后相机消失、截图完成无人接收的问题。安装器现统一 Loader 配置、目录和 manifest 的公开包名，并自动迁移旧名称、保留设置；请使用新版安装器后完整重启 DSH。后续 Release：https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.3 。
+
 - GitHub Release 已发布：`v0.7.0-beta.2`。
 - npm 已发布：https://www.npmjs.com/package/dsh-plugin-live-shot/v/0.7.0-beta.2 。注册表与实际下载的 TGZ 均已核对，和测试通过的 Release TGZ 完全一致。
 - DSH Market 申请已提交：https://github.com/2BingLing/dsh-market/issues/283 。已带 `submission` 标签，机器人已确认收到；仍待收录处理，未宣称已获批准。
