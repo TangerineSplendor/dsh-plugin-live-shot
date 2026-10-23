@@ -62,20 +62,23 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - name: Keep download notices consistent with current docs
+      - name: Remove broken beta.2 release and keep current notes consistent
         uses: actions/github-script@373c709c69115d41ff229c7e5df9f8788daa9553 # v9
         with:
           script: |
             const fs = require('node:fs');
             const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
             const currentTag = 'v' + version;
-            const { data: old } = await github.rest.repos.getReleaseByTag({ ...context.repo, tag: 'v0.7.0-beta.2' });
-            const marker = '<!-- broken-beta2-installer -->';
-            const notice = marker + '\n> **Do not install the beta.2 ZIP: its installer prevents the camera and composer Client from loading.**\n> beta.2 安装器有已确认的加载缺陷，重新下载仍会复现。请改用 [当前修复版 ZIP 发布页](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/releases/tag/' + currentTag + ')，不要复用旧安装器。\n\n';
-            if (!(old.body || '').startsWith(marker)) {
-              await github.rest.repos.updateRelease({ ...context.repo, release_id: old.id,
-                name: 'DSH Shot 0.7.0-beta.2 — obsolete installer', body: notice + (old.body || '') });
-            }
+            // The owner requested removal of this exact broken version.
+            // Keep both operations idempotent; never remove other releases.
+            const retiredTag = 'v0.7.0-beta.2';
+            try {
+              const { data: old } = await github.rest.repos.getReleaseByTag({ ...context.repo, tag: retiredTag });
+              await github.rest.repos.deleteRelease({ ...context.repo, release_id: old.id });
+            } catch (error) { if (error.status !== 404) throw error; }
+            try {
+              await github.rest.git.deleteRef({ ...context.repo, ref: 'tags/' + retiredTag });
+            } catch (error) { if (error.status !== 404) throw error; }
             try {
               const { data: current } = await github.rest.repos.getReleaseByTag({ ...context.repo, tag: currentTag });
               await github.rest.repos.updateRelease({ ...context.repo, release_id: current.id,
