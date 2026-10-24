@@ -1,5 +1,7 @@
 # DSH Shot
 
+[![DSH Market 已收录](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-zh.svg)](https://dsh.market/)
+
 Windows screenshot and annotation plugin for DeepSeek Harness. Select the **live desktop**, capture only the selected region after releasing the mouse, then insert the image directly into the conversation draft.
 
 Windows 实时桌面截图插件：全局热键、窗口识别、选区调整、标注，以及直接插入 DSH 输入框。
