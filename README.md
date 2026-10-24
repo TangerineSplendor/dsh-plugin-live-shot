@@ -4,7 +4,7 @@ Windows screenshot and annotation plugin for DeepSeek Harness. Select the **live
 
 Windows 实时桌面截图插件：全局热键、窗口识别、选区调整、标注，以及直接插入 DSH 输入框。
 
-[Download Windows ZIP 0.7.0-beta.4](https://github.com/TangerineSplendor/dsh-screenshot/releases/download/v0.7.0-beta.4/dsh-shot-0.7.0-beta.4-windows-x64.zip) · [Release notes](https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.4) · [Market submission](https://github.com/2BingLing/dsh-market/issues/283)
+[Download Windows ZIP 0.7.0-beta.4](https://github.com/TangerineSplendor/dsh-screenshot/releases/download/v0.7.0-beta.4/dsh-shot-0.7.0-beta.4-windows-x64.zip) · [Release notes](https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.4) · [DSH Market 已确认收录](https://github.com/2BingLing/dsh-market/issues/283#issuecomment-6379257821)
 
 **当前修复版为 `0.7.0-beta.4`，GitHub ZIP 与 npm 已同步，npm 的 `latest` / `beta` 标签均指向此版。存在相机按钮和插图加载缺陷的 beta.2 已从 GitHub Release、标签和 npm 下架；请勿复用本机留存的旧 ZIP 或安装器。**
 
