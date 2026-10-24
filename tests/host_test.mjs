@@ -22,6 +22,7 @@ class FakeWindow extends EventEmitter {
     this.webContents.getURL = () => 'file:///overlay.html';
   }
   setAlwaysOnTop() {} setBounds(bounds) { this.bounds = bounds; }
+  setOpacity(opacity) { this.opacity = opacity; }
   async loadURL() {} isDestroyed() { return false; }
   show() { this.visible = true; calls.push({ op: 'show' }); } hide() { this.visible = false; }
   focus() {} destroy() {} static getAllWindows() { return windows; }

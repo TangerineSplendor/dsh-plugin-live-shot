@@ -19,6 +19,12 @@ jobs:
         run: |
           node --experimental-vm-modules tests/host_test.mjs
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          node --experimental-vm-modules tests/native_selection_host_test.mjs
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          node tests/native_picker_test.mjs
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/escape_bridge_test.ps1
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
           node tests/selection_settings_test.mjs
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           node tests/client_install_test.mjs

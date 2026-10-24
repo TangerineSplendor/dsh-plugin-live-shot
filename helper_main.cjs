@@ -32,9 +32,21 @@ else {
   }
   app.on('window-all-closed', () => {});
   app.on('before-quit', event => { if (!stopping) { event.preventDefault(); void stop(); } });
-  import(pathToFileURL(path.join(__dirname, 'electron_controller.js')).href).then(module => {
+  Promise.all([
+    import(pathToFileURL(path.join(__dirname, 'electron_controller.js')).href),
+    import(pathToFileURL(path.join(__dirname, 'picker.js')).href),
+  ]).then(([module, { NativePicker }]) => {
+    const picker = new NativePicker();
+    cleanups.push(() => picker.stop());
     module.apply({
-      capture: { start: () => native({ op: 'warm' }), run: command => native(command), stop: () => {} },
+      nativeSelection: true,
+      capture: {
+        start: () => Promise.all([native({ op: 'warm' }), picker.start()]),
+        run: command => ['enableAdminEscape','adminEscapeStatus'].includes(command.op) ? picker.run(command)
+          : command.op === 'pick' ? picker.run({ ...command, op: 'select' })
+          : command.op === 'cancelPick' ? picker.run({ op: 'cancel' }) : native(command),
+        stop: () => {},
+      },
       connection: { fetch: { register: config => { route = config.fetch; return () => {}; } } },
       effect: fn => { const cleanup = fn(); if (typeof cleanup === 'function') cleanups.push(cleanup); },
     });

@@ -13,8 +13,10 @@ export function apply(ctx) {
   const require = createRequire(import.meta.url);
   const { app, BrowserWindow, screen, globalShortcut, ipcMain, clipboard, nativeImage, dialog, Notification } = require('electron');
   const worker = ctx.capture || new CaptureWorker();
+  const nativeSelection = ctx.nativeSelection === true;
   const channel = 'dsh-shot-' + randomUUID();
   let hotkey = DEFAULT_HOTKEY, hotkeyError = '';
+  let gameCompatibilityReady = false, gameCompatibilityEnabling = false;
   let win, active = false, phase = 'idle', display, startPoint, selection, poll, disposed = false;
   let registered = false, lastError = '', result = null, owner = null, readyMessage = null;
   let hideDsh = false, hiddenSession = null, opening = false, restoring = Promise.resolve(), settingsWrite = Promise.resolve();
@@ -27,7 +29,9 @@ export function apply(ctx) {
   const send = data => { if (win && !win.isDestroyed()) win.webContents.send(channel, data); };
   const clamp = p => ({ x: Math.max(0, Math.min(display.bounds.width, p.x)), y: Math.max(0, Math.min(display.bounds.height, p.y)) });
   function end() {
+    const cancelPicker = nativeSelection && phase === 'selecting';
     active = false; phase = 'idle'; clearInterval(poll); poll = null;
+    if (cancelPicker) void worker.run({ op: 'cancelPick' }).catch(() => {});
     generation++;
     if (readyMessage) { clearTimeout(readyMessage.timer); readyMessage.reject(new Error('Screenshot cancelled')); readyMessage = null; }
     if (win && !win.isDestroyed()) win.hide();
@@ -55,6 +59,9 @@ export function apply(ctx) {
       webPreferences: { preload: fileURLToPath(new URL('./overlay_preload.cjs', import.meta.url)),
         contextIsolation: true, nodeIntegration: false, sandbox: true,
         backgroundThrottling: false, additionalArguments: ['--shot-channel=' + channel] } });
+    // CSS alpha alone does not mark the native HWND as translucent for other
+    // applications' occlusion tracking. Preserve mouse input with native alpha.
+    if (process.platform === 'win32') win.setOpacity(0.99);
     win.setAlwaysOnTop(true, 'screen-saver');
     win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
     win.webContents.on('will-navigate', (e, url) => { if (!url.startsWith('file:')) e.preventDefault(); });
@@ -98,7 +105,20 @@ export function apply(ctx) {
       await present({ type: 'reset', width: display.bounds.width, height: display.bounds.height });
       if (!active) return;
       phase = 'selecting';
-      win.show(); win.focus();
+      if (nativeSelection) {
+        const session = generation;
+        const bounds = screen.dipToScreenRect(win, display.bounds);
+        void (async () => {
+          const picked = await worker.run({ op: 'pick', ...bounds });
+          if (!active || disposed || generation !== session) return;
+          if (!picked.selected) { await end(); return; }
+          const physical = intersect(picked, bounds);
+          if (!physical) throw new Error('Selected region is outside the display');
+          const dip = screen.screenToDipRect(win, physical);
+          selection = { x: dip.x - display.bounds.x, y: dip.y - display.bounds.y, width: dip.width, height: dip.height };
+          await captureSelection(false, physical);
+        })().catch(error => { if (active && generation === session) report(error); });
+      } else { win.show(); win.focus(); }
     } catch (error) { await end(); throw error; }
     finally { opening = false; }
   }
@@ -161,14 +181,14 @@ export function apply(ctx) {
     }
     await captureSelection(preserve);
   }
-  async function captureSelection(preserve) {
+  async function captureSelection(preserve, physicalRect) {
     const session = generation;
     phase = 'capturing';
     // Convert a rectangle on ONE monitor; multiplying a virtual-desktop union
     // by a single scaleFactor is incorrect with mixed-DPI monitors.
     const global = { x: display.bounds.x + selection.x, y: display.bounds.y + selection.y,
       width: selection.width, height: selection.height };
-    const rect = screen.dipToScreenRect(win, global);
+    const rect = physicalRect || screen.dipToScreenRect(win, global);
     win.hide();
     await new Promise(resolve => setTimeout(resolve, 70));
     if (!active || disposed || session !== generation) return;
@@ -259,12 +279,27 @@ export function apply(ctx) {
           });
           settingsWrite = save.catch(() => {}); await save;
         }
+        if (body.op === 'gameCompatibility') {
+          await initial;
+          if (!nativeSelection) throw new Error('当前截图服务不支持游戏兼容，请重新启动 DSH');
+          if (active || opening) throw new Error('请先结束当前截图');
+          if (!gameCompatibilityEnabling && !gameCompatibilityReady) {
+            gameCompatibilityEnabling = true; lastError = '';
+            void worker.run({ op: 'enableAdminEscape' }).then(status => { gameCompatibilityReady = status.ready === true; })
+              .catch(error => { lastError = error.message; })
+              .finally(() => { gameCompatibilityEnabling = false; });
+          }
+        }
+        if (body.op === 'poll' && nativeSelection && !gameCompatibilityEnabling) {
+          const status = await worker.run({ op: 'adminEscapeStatus' });
+          gameCompatibilityReady = status.ready === true;
+        }
         if (body.op === 'start') await begin(body.client, body.hideDsh);
         if (body.op === 'cancel' && owner === body.client) await end();
         if (body.op === 'ack' && result?.id === body.id && (!result.owner || result.owner === body.client)) result = null;
         if (body.op === 'failure') lastError = 'Composer insertion failed; screenshot retained for retry.';
         if (result && (!result.owner || (!clients.has(result.owner) && body.focused))) result.owner = body.client;
-        return Response.json({ registered, phase, hideDsh, dshHidden: !!hiddenSession?.windows.length, hotkey, hotkeyError, error: lastError,
+        return Response.json({ registered, phase, hideDsh, gameCompatibilityReady, gameCompatibilityEnabling, dshHidden: !!hiddenSession?.windows.length, hotkey, hotkeyError, error: lastError,
           result: result?.owner === body.client && body.op === 'poll' && !body.skipImage ? { id: result.id, png: result.png } : null });
       } catch (e) { return Response.json({ error: e.message }, { status: 400 }); }
     } }), 'dsh-shot: control');

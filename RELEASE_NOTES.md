@@ -1,41 +1,34 @@
-# DSH Shot 0.7.0-beta.4
+# DSH Shot 0.7.0-beta.5
 
-**下载提醒：本页 ZIP、TGZ 和 npm 已同步为 `0.7.0-beta.4`，安装时应显示 `Installed 0.7.0-beta.4`。npm 的 `latest` / `beta` 均已更新。beta.2 安装器有相机及插图 Client 加载缺陷，该版本已从 GitHub Release、标签和 npm 下架；请勿复用本地旧安装器。**
+Windows 实时桌面截图测试版。此次发布同步目前本机版本；游戏预框选 Esc 问题仍未解决，暂用右键取消。
 
-The live selector now paints a one-alpha-level input surface. On Windows, fully transparent regions can fail native mouse hit testing and let a selection drag hit the application underneath. This almost invisible backdrop keeps mouse input on the selector while the desktop remains live. It is hidden before capturing the selected region; no full-screen preview or early capture was added.
+## Changes
 
-Fix for beta.2 ZIP/explicit-installer users: the global hotkey worked, but the composer camera was absent and completed screenshots stayed queued. The installer used the legacy Loader name while package.json had the public name, so DSH silently skipped the Client half.
+- 初始框选改为 Windows 原生 layered 非激活窗口，保持真实桌面可见并接收鼠标；悬停识别窗口或自由拖选。预框选只传坐标，松手关闭选框后才抓原生分辨率的选区 PNG，再显示 Electron 编辑器。
+- 保留 Electron 原生窗口透明度设置。本机反馈 B 站视频在选框期间恢复可见，游戏原生拖选可用；不保证所有游戏/显卡/环境均通过。
+- 设置中增加可选「启用管理员游戏兼容」试验入口，只为活动选框提供独立 Esc 监听。需要本人确认 Windows 提示，退出辅助进程后失效；DSH 和像素抓取进程保持原权限。
+- 继续提供相机按钮、自定义全局热键（默认 Ctrl+Shift+X，升级保留用户设置）、隐藏 DSH、标注/撤销/保存、Enter 插图及 Ctrl+C 仅复制。
 
-All installation paths now use dsh-plugin-live-shot consistently. The installer migrates the legacy entry and preserves settings and custom data paths. No uninstall is required: run install.bat from this version, fully quit DSH from its tray menu, and reopen it.
+## Known limitations
 
-The Windows CI now runs the actual installer in an isolated fixture and checks Loader/manifest/Client identity, camera registration, completed PNG delivery and acknowledgement. Local migration tests also reproduce the beta.2 failure before verifying the upgrade.
+**游戏预框选 Esc 仍可能无效。完整插件中的管理员兼容桥接也未通过本机实测，不能作为已修复功能宣传；暂用右键退出。**独立管理员选框测试中 Esc 有效，但不能据此推断集成路径有效。
 
-- Live desktop selection with capture only after mouse release; native-resolution region PNG.
-- Composer camera button and configurable global shortcut (default Ctrl+Shift+X).
-- Window selection, region movement/resizing, annotation, mosaic, text, undo and PNG save.
-- Optional remembered Hide DSH setting; Shift+camera reverses it for one capture.
-- Enter/double-click inserts into DSH; Ctrl+C copies only; Esc/right-click cancels.
-- Portable ZIP installer and npm command; first-run setup for standard bundle installs.
-- MIT-licensed plugin source. DSH/Electron binaries and personal configuration are excluded.
+松手后的编辑器 Esc 已获本机反馈正常。游戏中再次移动/调整选区仍走 Electron，焦点表现未完成验证。仅 Windows x64 官方 DSH 桌面、本地 Host、单显示器选区；没有跨屏拼接或长截图。
 
 ## Install
 
-Open DSH once, keep it running, extract the Windows ZIP and double-click install.bat. If asked, select your DeepSeek Harness.exe. Fully quit DSH from the tray menu and reopen it.
-
-With Node.js, the alternative is:
+下载本 Release 的 Windows ZIP，完整解压后运行 install.bat。无需卸载旧版；完成后从托盘完整退出 DSH 并重开。ZIP 安装无需额外 Node 或管理员权限。
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.4 dsh-shot install
+npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.5 dsh-shot install
 ```
-
-The registry tarball has been downloaded and verified byte-for-byte against the attached `.tgz`. A downloaded TGZ can also be used with `npx --yes --package=./dsh-plugin-live-shot-0.7.0-beta.4.tgz dsh-shot install`.
 
 ## Restart checks
 
-1. Camera and Ctrl+Shift+X: desktop video/clock keeps updating during selection.
-2. Window selection, resize and annotation; Hide DSH restores the app after cancel.
-3. Enter inserts; Ctrl+C copies only; preferences persist across a full restart.
+1. 相机和已保存的全局热键均能唤出；在视频上拖动，检查桌面仍可见，右键退出。
+2. 框选松手后检查工具条；Enter 插入 DSH，Ctrl+C 仅复制，隐藏 DSH 后取消应恢复。
+3. 在目标游戏中分别检查拖选、松手和取消；Esc 无效时用右键，并按已知问题反馈，不把试验兼容入口当成保证。
 
-## Evidence and limits
+## Validation
 
-Core state-machine tests, real Windows PowerShell region capture and isolated-profile installation/startup/removal tests were run locally. Other PCs still need compatibility testing; no claim of universal DSH/RDP compatibility. One monitor per selection, no cross-monitor stitching or long screenshot. Composer insertion depends on DSH paste/drop behavior. The dedicated local Electron helper uses --no-sandbox, context isolation and a network-blocking page CSP.
+包含 Host 状态/物理坐标/取消无采样测试、真实 PowerShell 选框启动与复用、Esc 辅助程序编译和非法 owner 拒绝测试、隔离安装及 Client 加载/插图协议检查。自动测试的各自边界不能替代真实游戏键鼠验收。发行包排除 DSH/Electron 二进制、个人配置、登录态和本机诊断文件。

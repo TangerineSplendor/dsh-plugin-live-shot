@@ -1,16 +1,37 @@
 {
   "name": "dsh-plugin-live-shot",
-  "version": "0.7.0-beta.4",
+  "version": "0.7.0-beta.5",
   "license": "MIT",
   "author": "TangerineSplendor",
-  "repository": { "type": "git", "url": "git+https://github.com/TangerineSplendor/dsh-screenshot.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TangerineSplendor/dsh-screenshot.git"
+  },
   "homepage": "https://github.com/TangerineSplendor/dsh-screenshot#readme",
-  "bugs": { "url": "https://github.com/TangerineSplendor/dsh-screenshot/issues" },
-  "keywords": ["dsh-plugin", "deepseek-harness", "screenshot", "windows", "annotation"],
-  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/", "tag": "beta" },
-  "bin": { "dsh-shot": "./bin/dsh-shot.cjs" },
-  "os": ["win32"],
-  "cpu": ["x64"],
+  "bugs": {
+    "url": "https://github.com/TangerineSplendor/dsh-screenshot/issues"
+  },
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "screenshot",
+    "windows",
+    "annotation"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "tag": "beta"
+  },
+  "bin": {
+    "dsh-shot": "./bin/dsh-shot.cjs"
+  },
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
   "type": "module",
   "description": "Screenshot editor that lands the crop straight in the composer draft.",
   "exports": {
@@ -31,6 +52,11 @@
     "runtime_paths.cjs",
     "client.js",
     "worker.js",
+    "picker.js",
+    "native_picker.cs",
+    "native_picker.ps1",
+    "escape_bridge.cs",
+    "escape_bridge.ps1",
     "capture_worker.ps1",
     "overlay_preload.cjs",
     "overlay.html",

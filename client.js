@@ -7,8 +7,10 @@ window.__ModuleLoader__.load({
     let running = false, stopped = false, retryAt = 0, errorShown = '', delivered = new Set();
     let hidePreference = false, preferenceLoaded = false;
     let hotkeyPreference = 'Ctrl+Shift+X', shortcutProblem = '', hotkeyRegistered = false;
+    let gameCompatibilityReady = false, gameCompatibilityEnabling = false;
     const preferenceState = () => ({ value: hidePreference, ready: preferenceLoaded,
-      hotkey: hotkeyPreference, problem: shortcutProblem, registered: hotkeyRegistered });
+      hotkey: hotkeyPreference, problem: shortcutProblem, registered: hotkeyRegistered,
+      gameCompatibilityReady, gameCompatibilityEnabling });
     const preferenceListeners = new Set();
     function toast(message) {
       let el = document.getElementById('dsh-shot-toast');
@@ -40,6 +42,8 @@ window.__ModuleLoader__.load({
       if (typeof data.hideDsh === 'boolean') {
         hidePreference = data.hideDsh; preferenceLoaded = true;
         hotkeyPreference = data.hotkey || hotkeyPreference; shortcutProblem = data.hotkeyError || ''; hotkeyRegistered = !!data.registered;
+        gameCompatibilityReady = data.gameCompatibilityReady === true;
+        gameCompatibilityEnabling = data.gameCompatibilityEnabling === true;
         for (const listener of preferenceListeners) listener(preferenceState());
       }
       return data;
@@ -92,6 +96,11 @@ window.__ModuleLoader__.load({
         catch (error) { setSettingsError(error.message); }
         finally { setSaving(false); }
       };
+      const enableGameCompatibility = async () => {
+        setSettingsError('');
+        try { await post('gameCompatibility'); toast('请确认 Windows 提示，启用后即可返回游戏截图'); }
+        catch (error) { setSettingsError(error.message); }
+      };
       return h('span', { style: { display: 'inline-flex', alignItems: 'center', gap: 3, position: 'relative' } },
         h('button', { type: 'button', title: '实时桌面截图（全局 ' + preference.hotkey + '）\nShift+点击：本次反向切换隐藏 DSH',
         'aria-label': '截图', onClick: event => {
@@ -116,6 +125,11 @@ window.__ModuleLoader__.load({
               onChange: event => setShortcutDraft(event.target.value),
               onKeyDown: event => { if (event.key === 'Enter') { event.preventDefault(); void saveShortcut(); } if (event.key === 'Escape') setSettingsOpen(false); } })),
           h('div', { style: { fontSize: 11, color: '#666', margin: '6px 0' } }, '例如 Ctrl+Alt+A、Ctrl+Shift+X、F8'),
+          h('div', { style: { borderTop: '1px solid #ddd', paddingTop: 8, marginBottom: 8 } },
+            h('button', { type: 'button', disabled: preference.gameCompatibilityReady || preference.gameCompatibilityEnabling,
+              onClick: () => { void enableGameCompatibility(); } },
+              preference.gameCompatibilityReady ? '游戏兼容已启用' : preference.gameCompatibilityEnabling ? '等待 Windows 确认…' : '启用管理员游戏兼容'),
+            h('div', { style: { fontSize: 11, color: '#666', marginTop: 5 } }, '用于游戏中 Esc 无法取消选框的情况。需确认 Windows 提示；仅本次运行有效。')),
           (settingsError || preference.problem) && h('div', { role: 'alert', style: { color: '#b22', marginBottom: 6 } }, settingsError || preference.problem),
           h('div', { style: { display: 'flex', gap: 6 } },
             h('button', { type: 'button', disabled: saving, onClick: () => { void saveShortcut(); } }, '保存'),

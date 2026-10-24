@@ -6,25 +6,25 @@ Windows screenshot and annotation plugin for DeepSeek Harness. Select the **live
 
 Windows 实时桌面截图插件：全局热键、窗口识别、选区调整、标注，以及直接插入 DSH 输入框。
 
-[Download Windows ZIP 0.7.0-beta.4](https://github.com/TangerineSplendor/dsh-screenshot/releases/download/v0.7.0-beta.4/dsh-shot-0.7.0-beta.4-windows-x64.zip) · [Release notes](https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.4) · [DSH Market 已确认收录](https://github.com/2BingLing/dsh-market/issues/283#issuecomment-6379257821)
+[Download Windows ZIP 0.7.0-beta.5](https://github.com/TangerineSplendor/dsh-screenshot/releases/download/v0.7.0-beta.5/dsh-shot-0.7.0-beta.5-windows-x64.zip) · [Release notes](https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.5) · [DSH Market 已确认收录](https://github.com/2BingLing/dsh-market/issues/283#issuecomment-6379257821)
 
-**当前修复版为 `0.7.0-beta.4`，GitHub ZIP 与 npm 已同步，npm 的 `latest` / `beta` 标签均指向此版。存在相机按钮和插图加载缺陷的 beta.2 已从 GitHub Release、标签和 npm 下架；请勿复用本机留存的旧 ZIP 或安装器。**
+**当前测试版为 `0.7.0-beta.5`。此版改用 Windows 原生预框选，改善本机视频/游戏框选可见性；游戏预框选 Esc 取消仍有已知问题，暂用右键退出。旧 beta.2 的相机/插图安装缺陷已在此前版本修复，该旧版已下架。**
 
-**Beta: 0.7.0-beta.4. Windows 10/11 x64, official DSH desktop only.** Tested on the developer's machine with isolated profiles; compatibility on other machines still needs feedback. macOS, Linux, browser-only DSH and remote Hosts are unsupported.
+**Beta: 0.7.0-beta.5. Windows 10/11 x64, official DSH desktop only.** Tested on the developer's machine with isolated profiles; compatibility on other machines still needs feedback. macOS, Linux, browser-only DSH and remote Hosts are unsupported.
 
 ## Install / 安装
 
 Install and open the official Windows DSH desktop app at least once. Keep DSH running during setup so the installer can find its executable.
 
-**ZIP, no additional Node.js required:** download [dsh-shot-0.7.0-beta.4-windows-x64.zip](https://github.com/TangerineSplendor/dsh-screenshot/releases/download/v0.7.0-beta.4/dsh-shot-0.7.0-beta.4-windows-x64.zip), extract it completely and run `install.bat`. The installer must print `Installed 0.7.0-beta.4`. If prompted, select your installed `DeepSeek Harness.exe`. Quit DSH completely from its tray menu and reopen it. Do not reuse a beta.2 ZIP or its extracted installer.
+**ZIP, no additional Node.js required:** download [dsh-shot-0.7.0-beta.5-windows-x64.zip](https://github.com/TangerineSplendor/dsh-screenshot/releases/download/v0.7.0-beta.5/dsh-shot-0.7.0-beta.5-windows-x64.zip), extract it completely and run `install.bat`. The installer must print `Installed 0.7.0-beta.5`. If prompted, select your installed `DeepSeek Harness.exe`. Quit DSH completely from its tray menu and reopen it. Do not reuse a beta.2 ZIP or its extracted installer.
 
 **npm, for users who already have Node.js:**
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.4 dsh-shot install
+npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.5 dsh-shot install
 ```
 
-Alternatively, download the Release TGZ and use `npx --yes --package=./dsh-plugin-live-shot-0.7.0-beta.4.tgz dsh-shot install` from its folder. Use `dsh-shot install -DshExe "C:\Apps\DeepSeek Harness\DeepSeek Harness.exe"` if automatic detection fails. `-ProfileDir`, `-DshHome` and `-DataDir` support non-default installations. Then fully quit and reopen DSH.
+Alternatively, download the Release TGZ and use `npx --yes --package=./dsh-plugin-live-shot-0.7.0-beta.5.tgz dsh-shot install` from its folder. Use `dsh-shot install -DshExe "C:\Apps\DeepSeek Harness\DeepSeek Harness.exe"` if automatic detection fails. `-ProfileDir`, `-DshHome` and `-DataDir` support non-default installations. Then fully quit and reopen DSH.
 
 ZIP, npm and standard bundle installations all use `dsh-plugin-live-shot` as the installed directory, Loader entry, manifest name and Client module ID. The installer migrates the old `@local/dsh-shot` entry while preserving its settings and custom data directory. Beta.2 ZIP installations had a name mismatch that prevented the camera and image delivery from loading; upgrade with this installer and completely restart DSH. Standard bundle installations prepare the local runtime on first startup; if automatic discovery fails, use the explicit installer instead.
 
@@ -35,9 +35,15 @@ ZIP, npm and standard bundle installations all use `dsh-plugin-live-shot` as the
 - Click the camera in the composer, or press **Ctrl+Shift+X** from any program. The desktop remains live while selecting; no full-screen preview is captured.
 - Hover a window and click to select it, or drag a custom region. After release, move the selection with **↔** or resize its eight handles. Releasing a changed selection captures the new region.
 - Rectangle, ellipse, arrow, pen, mosaic, text, undo and PNG save are available.
-- **Enter / double-click / Done** inserts into the active DSH composer. **Ctrl+C** copies only. **Esc / right-click** cancels.
+- **Enter / double-click / Done** inserts into the active DSH composer. **Ctrl+C** copies only. **Right-click** cancels. Esc works in the editor; preselection Esc in games remains a known issue.
 - **隐藏 DSH** remembers whether to hide DSH during capture. **Shift+camera** inverts that choice for one capture. Completion or cancellation restores hidden windows.
 - **⚙** changes the global shortcut. A conflict or save failure preserves the previous binding.
+
+## Known issue in this beta / 本版已知问题
+
+游戏预框选阶段 Esc 可能无效，暂用右键退出；松手后的编辑器 Esc 已获本机反馈正常。⚙ 中新增手动启用的「管理员游戏兼容」试验入口，需要本人确认 Windows 提示，仅本次辅助进程运行有效。**完整插件实测仍未解决该 Esc 问题，不能将此入口视为已修复或保证有效。**普通截图和安装不请求管理员权限。编辑后移动/调整选区仍使用 Electron，游戏焦点行为尚待进一步验证。
+
+本机用户已确认 B 站视频框选期间恢复可见、游戏原生拖选可用；这不是所有游戏或所有机器的兼容性保证。
 
 ## Restart acceptance / 重启后三步验收
 
@@ -50,7 +56,7 @@ ZIP, npm and standard bundle installations all use `dsh-plugin-live-shot` as the
 For the explicit installer, run `uninstall.bat`, or:
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.4 dsh-shot uninstall
+npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.5 dsh-shot uninstall
 ```
 
 Then completely restart DSH. Default removal retains settings and local runtime. The optional `-RemoveData` also deletes the dedicated data directory, including images saved in its `captures` folder. For a non-default profile, pass the same `-ProfileDir` used to install. If installed as a standard DSH bundle, remove it through that bundle manager instead.
