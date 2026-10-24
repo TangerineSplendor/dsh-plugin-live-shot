@@ -12,7 +12,7 @@
 - **插件类型**：cordis-plugin（包含 Host 与 Client 的 DSH bundle）
 - **一句话简介**：Windows 桌面截图插件，支持实时桌面框选、窗口识别、选区标注、全局热键和直接插入 DSH 输入框。
 - **作者自述简介**：[希望把截图到提问的操作缩短为一次框选。按热键后保持真实桌面可见，松手才抓选区；支持矩形、椭圆、箭头、画笔、马赛克、文字、撤销与保存，也可以选择截图时隐藏 DSH。Enter 插入输入框，Ctrl+C 只复制。当前为 Windows x64 的公开 beta，欢迎反馈不同 DSH、缩放比例和 RDP 环境的兼容性。]
-- **是否已打 dsh-plugin 相关 topic**：尚未设置，通过本 issue 提交候选。
+- **是否已打 dsh-plugin 相关 topic**：已设置 `dsh-plugin`，仓库 README 顶部也已使用 DSH Market 提供的蓝色「已收录」徽章。
 
 ## 安装与版本
 
