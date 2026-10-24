@@ -28,3 +28,11 @@ ZIP 无需额外 Node、管理员权限或额外下载运行时；从本机 DSH 
 - 公开代码含 Windows CI、Host 状态/取消无采样、原生选框、Esc 辅助编译与非法 owner 拒绝，以及隔离安装/Client 协议检查。完整游戏交互不能仅用自动测试结果判定。
 
 优先展示 Windows ZIP 与显式版本 npm 命令。请保留已有收录状态，后续展示以 DSH Market 自身刷新结果为准。
+
+## 本次同步结果（2026-10-24）
+
+GitHub v0.7.0-beta.5 已发布，Windows CI 通过；Release ZIP/TGZ 已重新下载并校验。npm 同版已发布，latest / beta 均指向 beta.5，正常下载地址已可用，TGZ 与 GitHub 附件字节一致。
+
+DSH Market 现有收录仍有效，仓库 dsh-plugin topic 已核对保留，新版 README 与安装命令已公开供其下一轮定时采集。此次查询市场公开快照 generatedAt 为 2026-10-23T22:06:23.256Z，条目仍含 beta.4 的旧 README 缓存；不声称市场页面已显示 beta.5。市场的定时收录/部署由其维护者控制，详见该仓库 README 和 collect-and-deploy 工作流。
+
+本次沿用既有 accepted 收录和仓库定时扫描来源，不重复申请收录。新版本在市场的展示以其完成刷新为准。
