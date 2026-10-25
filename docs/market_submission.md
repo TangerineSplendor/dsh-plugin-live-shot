@@ -57,3 +57,5 @@ DSH Market 现有收录仍有效，仓库 dsh-plugin topic 已核对保留，新
 最终可用性核对：npm /0.7.0-beta.6 已返回新仓库 URL，latest 为 beta.6，公开 TGZ 已重新下载，SHA-256 与 GitHub Release TGZ 相同。注册表 README 标题为 dsh-plugin-live-shot；在 F:/Codex（源码目录之外）执行公开 npm exec 的 dsh-shot --help 通过。源码目录内执行同名 package 的 npm exec 会被 npm 当作本地 package 而不拉取 bin，已通过换到普通工作目录消除该测试环境干扰。beta 标签切换命令已启动，正在等待用户完成 npm 独立验证。
 
 市场最终查询快照仍为 generatedAt 2026-10-24T22:38:33.47Z，仅有旧名 dsh-screenshot，尚不能宣布市场名称已完成统一。
+
+收工补正：beta 标签切换的独立安全验证超时，命令已结束，旧授权链接已失效；latest 仍为 beta.6、beta 暂为 beta.5，beta.6 发布和默认安装不受影响。市场迁移稿已备好但尚未提交成功，暂等自动采集或后续提交确认。
