@@ -1,6 +1,6 @@
 # dsh-plugin-live-shot — 市场版本同步
 
-准备版本：0.7.0-beta.6，Windows x64 公开 beta，MIT。此稿用于名称迁移与同步已收录的插件，不重复申请收录；发布前不得把下列目标链接视为已上线。GitHub/npm 实际发布状态由公开页面和注册表确认。
+版本：0.7.0-beta.6，Windows x64 公开 beta，MIT。此稿用于名称迁移与同步已收录的插件，不重复申请收录。GitHub Release 与 npm 同版均已公开可下载；latest 已更新，beta 标签状态和市场条目以文末实查为准。
 
 - 仓库：https://github.com/TangerineSplendor/dsh-plugin-live-shot
 - Release：https://github.com/TangerineSplendor/dsh-plugin-live-shot/releases/tag/v0.7.0-beta.6
@@ -49,3 +49,11 @@ DSH Market 现有收录仍有效，仓库 dsh-plugin topic 已核对保留，新
 ## 最新查询与待办（2026-10-25）
 
 更名前公开市场数据 generatedAt 为 2026-10-24T22:38:33.47Z（北京时间 10 月 25 日 06:38），旧 ID 条目的 README 缓存和下载链接均已到 beta.5；npm latest / beta 也均为 beta.5。beta.6 在本地准备中，仓库 Rename、实际发版和市场迁移仍待核实。
+
+随后核实：GitHub 仓库已更名且稳定 ID 不变，旧地址已重定向。公开提交 725a21e，v0.7.0-beta.6 的 Windows CI/Release 作业通过，4 个附件重新下载后均与 GitHub SHA-256 digest 匹配。npm 发布 CLI 已返回成功，后续注册表和标签结果见下方最终核对记录。
+
+市场迁移 Issue 未创建：GitHub 连接器返回 403 Resource not accessible by integration。采集器从 repo.full_name/name 生成条目并支持改名去重；但旧名可能走 B2 缓存恢复（14 天真实核实间隔），不能保证下一轮就消除旧条目或迁移作者自述。新仓库仍靠 dsh-plugin topic 进入自动采集；已准备名称迁移稿供提交，实际显示以公开 plugins.json 为准。
+
+最终可用性核对：npm /0.7.0-beta.6 已返回新仓库 URL，latest 为 beta.6，公开 TGZ 已重新下载，SHA-256 与 GitHub Release TGZ 相同。注册表 README 标题为 dsh-plugin-live-shot；在 F:/Codex（源码目录之外）执行公开 npm exec 的 dsh-shot --help 通过。源码目录内执行同名 package 的 npm exec 会被 npm 当作本地 package 而不拉取 bin，已通过换到普通工作目录消除该测试环境干扰。beta 标签切换命令已启动，正在等待用户完成 npm 独立验证。
+
+市场最终查询快照仍为 generatedAt 2026-10-24T22:38:33.47Z，仅有旧名 dsh-screenshot，尚不能宣布市场名称已完成统一。
