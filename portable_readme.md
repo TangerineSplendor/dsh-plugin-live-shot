@@ -1,6 +1,8 @@
-# DSH Shot — Windows 可移植测试包
+# dsh-plugin-live-shot — Windows 可移植测试包
 
-版本：0.7.0-beta.5。适用于 **Windows 10/11 x64 的官方 DeepSeek Harness 桌面版**。需要先安装并打开过一次 DSH。macOS、Linux、纯浏览器、远程服务器 Host 和其他桌面壳未验证。
+版本：0.7.0-beta.6。适用于 **Windows 10/11 x64 的官方 DeepSeek Harness 桌面版**。需要先安装并打开过一次 DSH。macOS、Linux、纯浏览器、远程服务器 Host 和其他桌面壳未验证。
+
+插件统一名称为 **dsh-plugin-live-shot**，此前的 DSH Shot / dsh-screenshot 均指同一插件。`dsh-shot` 保留为命令简称，升级保留已有配置、热键和数据目录。
 
 ## 安装
 
@@ -61,4 +63,4 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install.ps1 -DshExe "C
 - 辅助 Electron 使用本地专用页面与 `--no-sandbox` 启动参数；页面不加载远程网站。插件会注册全局热键、抓取用户指定选区，并按用户操作写剪贴板或文件。
 - 报错时请提供 DSH 版本、Windows 版本、缩放比例、是否 RDP，以及报错原文；不需要发送登录信息或个人配置目录。
 
-`checksums.sha256` 可用于核对包中文件的传输完整性。本插件采用 MIT 许可。源码与更新：https://github.com/TangerineSplendor/dsh-screenshot 。社区收录状态以发布记录为准。
+`checksums.sha256` 可用于核对包中文件的传输完整性。本插件采用 MIT 许可。源码与更新：https://github.com/TangerineSplendor/dsh-plugin-live-shot 。社区收录状态以发布记录为准。

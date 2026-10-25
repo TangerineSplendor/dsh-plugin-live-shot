@@ -73,7 +73,8 @@ jobs:
         with:
           script: |
             const fs = require('node:fs');
-            const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
+            const manifest = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            const version = manifest.version;
             const currentTag = 'v' + version;
             // The owner requested removal of this exact broken version.
             // Keep both operations idempotent; never remove other releases.
@@ -89,7 +90,7 @@ jobs:
             try {
               const { data: current } = await github.rest.repos.getReleaseByTag({ ...context.repo, tag: currentTag });
               await github.rest.repos.updateRelease({ ...context.repo, release_id: current.id,
-                body: fs.readFileSync('RELEASE_NOTES.md', 'utf8') });
+                name: manifest.name + ' ' + version, body: fs.readFileSync('RELEASE_NOTES.md', 'utf8') });
             } catch (error) { if (error.status !== 404) throw error; }
   release:
     if: startsWith(github.ref, 'refs/tags/v')
@@ -113,7 +114,7 @@ jobs:
             const manifest = JSON.parse(fs.readFileSync('package.json', 'utf8'));
             if (tag !== 'v' + manifest.version) throw new Error('Tag must match package version');
             const { data: release } = await github.rest.repos.createRelease({
-              ...context.repo, tag_name: tag, name: 'DSH Shot ' + manifest.version,
+              ...context.repo, tag_name: tag, name: manifest.name + ' ' + manifest.version,
               body: fs.readFileSync('RELEASE_NOTES.md', 'utf8'), prerelease: manifest.version.includes('-')
             });
             for (const name of fs.readdirSync('dist').filter(n => /\.(zip|tgz|sha256)$/.test(n))) {

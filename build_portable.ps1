@@ -8,7 +8,7 @@ if (-not $OutputDir) { $OutputDir = Join-Path $sourceRoot 'dist' }
 $outputRoot = [IO.Path]::GetFullPath($OutputDir)
 New-Item -ItemType Directory -Force -Path $outputRoot | Out-Null
 $manifest = Read-ShotText (Join-Path $sourceRoot 'package.json') | ConvertFrom-Json
-$name = 'dsh-shot-' + $manifest.version + '-windows-x64'
+$name = $manifest.name + '-' + $manifest.version + '-windows-x64'
 $staging = Join-Path $outputRoot ('stage-' + [Guid]::NewGuid().ToString('N').Substring(0,8))
 $bundle = Join-Path $staging $name
 New-Item -ItemType Directory -Force -Path $bundle | Out-Null

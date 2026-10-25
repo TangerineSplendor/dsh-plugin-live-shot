@@ -1,15 +1,15 @@
 {
   "name": "dsh-plugin-live-shot",
-  "version": "0.7.0-beta.5",
+  "version": "0.7.0-beta.6",
   "license": "MIT",
   "author": "TangerineSplendor",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TangerineSplendor/dsh-screenshot.git"
+    "url": "git+https://github.com/TangerineSplendor/dsh-plugin-live-shot.git"
   },
-  "homepage": "https://github.com/TangerineSplendor/dsh-screenshot#readme",
+  "homepage": "https://github.com/TangerineSplendor/dsh-plugin-live-shot#readme",
   "bugs": {
-    "url": "https://github.com/TangerineSplendor/dsh-screenshot/issues"
+    "url": "https://github.com/TangerineSplendor/dsh-plugin-live-shot/issues"
   },
   "keywords": [
     "dsh-plugin",

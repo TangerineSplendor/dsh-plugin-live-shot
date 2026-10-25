@@ -7,7 +7,7 @@ import runtimePaths from './runtime_paths.cjs';
 export async function ensureRuntime() {
   const paths = runtimePaths();
   if (fs.existsSync(paths.electronExe)) return paths;
-  if (process.platform !== 'win32') throw new Error('DSH Shot requires the Windows x64 desktop app');
+  if (process.platform !== 'win32') throw new Error('dsh-plugin-live-shot requires the Windows x64 desktop app');
   await new Promise((resolve, reject) => {
     const child = spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File',
       fileURLToPath(new URL('./prepare_runtime.ps1', import.meta.url)), '-DataDir', paths.dataDir],

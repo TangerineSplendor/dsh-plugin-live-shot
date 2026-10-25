@@ -1,4 +1,4 @@
-# DSH Shot
+# dsh-plugin-live-shot
 
 [![DSH Market 已收录](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-zh.svg)](https://dsh.market/)
 
@@ -6,25 +6,27 @@ Windows screenshot and annotation plugin for DeepSeek Harness. Select the **live
 
 Windows 实时桌面截图插件：全局热键、窗口识别、选区调整、标注，以及直接插入 DSH 输入框。
 
-[Download Windows ZIP 0.7.0-beta.5](https://github.com/TangerineSplendor/dsh-screenshot/releases/download/v0.7.0-beta.5/dsh-shot-0.7.0-beta.5-windows-x64.zip) · [Release notes](https://github.com/TangerineSplendor/dsh-screenshot/releases/tag/v0.7.0-beta.5) · [DSH Market 已确认收录](https://github.com/2BingLing/dsh-market/issues/283#issuecomment-6379257821)
+统一名称为 **dsh-plugin-live-shot**，用于 GitHub、DSH Market、npm 和插件显示。此前的 DSH Shot / dsh-screenshot 均指本插件；`dsh-shot` 继续作为安装/卸载命令简称，现有配置和数据目录保持兼容。
 
-**当前测试版为 `0.7.0-beta.5`。此版改用 Windows 原生预框选，改善本机视频/游戏框选可见性；游戏预框选 Esc 取消仍有已知问题，暂用右键退出。旧 beta.2 的相机/插图安装缺陷已在此前版本修复，该旧版已下架。**
+[Download Windows ZIP 0.7.0-beta.6](https://github.com/TangerineSplendor/dsh-plugin-live-shot/releases/download/v0.7.0-beta.6/dsh-plugin-live-shot-0.7.0-beta.6-windows-x64.zip) · [Release notes](https://github.com/TangerineSplendor/dsh-plugin-live-shot/releases/tag/v0.7.0-beta.6) · [DSH Market 已确认收录](https://github.com/2BingLing/dsh-market/issues/283#issuecomment-6379257821)
 
-**Beta: 0.7.0-beta.5. Windows 10/11 x64, official DSH desktop only.** Tested on the developer's machine with isolated profiles; compatibility on other machines still needs feedback. macOS, Linux, browser-only DSH and remote Hosts are unsupported.
+**当前测试版为 `0.7.0-beta.6`。此版统一公开名称和下载包命名，截图行为沿用 beta.5；游戏预框选 Esc 取消仍有已知问题，暂用右键退出。旧 beta.2 的相机/插图安装缺陷已在此前版本修复，该旧版已下架。**
+
+**Beta: 0.7.0-beta.6. Windows 10/11 x64, official DSH desktop only.** Tested on the developer's machine with isolated profiles; compatibility on other machines still needs feedback. macOS, Linux, browser-only DSH and remote Hosts are unsupported.
 
 ## Install / 安装
 
 Install and open the official Windows DSH desktop app at least once. Keep DSH running during setup so the installer can find its executable.
 
-**ZIP, no additional Node.js required:** download [dsh-shot-0.7.0-beta.5-windows-x64.zip](https://github.com/TangerineSplendor/dsh-screenshot/releases/download/v0.7.0-beta.5/dsh-shot-0.7.0-beta.5-windows-x64.zip), extract it completely and run `install.bat`. The installer must print `Installed 0.7.0-beta.5`. If prompted, select your installed `DeepSeek Harness.exe`. Quit DSH completely from its tray menu and reopen it. Do not reuse a beta.2 ZIP or its extracted installer.
+**ZIP, no additional Node.js required:** download [dsh-plugin-live-shot-0.7.0-beta.6-windows-x64.zip](https://github.com/TangerineSplendor/dsh-plugin-live-shot/releases/download/v0.7.0-beta.6/dsh-plugin-live-shot-0.7.0-beta.6-windows-x64.zip), extract it completely and run `install.bat`. The installer must print `Installed 0.7.0-beta.6`. If prompted, select your installed `DeepSeek Harness.exe`. Quit DSH completely from its tray menu and reopen it. Do not reuse a beta.2 ZIP or its extracted installer.
 
 **npm, for users who already have Node.js:**
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.5 dsh-shot install
+npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.6 dsh-shot install
 ```
 
-Alternatively, download the Release TGZ and use `npx --yes --package=./dsh-plugin-live-shot-0.7.0-beta.5.tgz dsh-shot install` from its folder. Use `dsh-shot install -DshExe "C:\Apps\DeepSeek Harness\DeepSeek Harness.exe"` if automatic detection fails. `-ProfileDir`, `-DshHome` and `-DataDir` support non-default installations. Then fully quit and reopen DSH.
+Alternatively, download the Release TGZ and use `npx --yes --package=./dsh-plugin-live-shot-0.7.0-beta.6.tgz dsh-shot install` from its folder. Use `dsh-shot install -DshExe "C:\Apps\DeepSeek Harness\DeepSeek Harness.exe"` if automatic detection fails. `-ProfileDir`, `-DshHome` and `-DataDir` support non-default installations. Then fully quit and reopen DSH.
 
 ZIP, npm and standard bundle installations all use `dsh-plugin-live-shot` as the installed directory, Loader entry, manifest name and Client module ID. The installer migrates the old `@local/dsh-shot` entry while preserving its settings and custom data directory. Beta.2 ZIP installations had a name mismatch that prevented the camera and image delivery from loading; upgrade with this installer and completely restart DSH. Standard bundle installations prepare the local runtime on first startup; if automatic discovery fails, use the explicit installer instead.
 
@@ -56,7 +58,7 @@ ZIP, npm and standard bundle installations all use `dsh-plugin-live-shot` as the
 For the explicit installer, run `uninstall.bat`, or:
 
 ```powershell
-npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.5 dsh-shot uninstall
+npx --yes --package=dsh-plugin-live-shot@0.7.0-beta.6 dsh-shot uninstall
 ```
 
 Then completely restart DSH. Default removal retains settings and local runtime. The optional `-RemoveData` also deletes the dedicated data directory, including images saved in its `captures` folder. For a non-default profile, pass the same `-ProfileDir` used to install. If installed as a standard DSH bundle, remove it through that bundle manager instead.
@@ -69,7 +71,7 @@ One monitor per selection; no cross-monitor stitching or scrolling capture. Wind
 
 The plugin registers a global hotkey, reads pointer/window geometry, captures the region you select, and writes the clipboard or a PNG only when requested. It uses an authenticated random-token loopback connection between its local processes. The dedicated Electron helper uses `--no-sandbox` and a local page with context isolation and a network-blocking CSP; it must not load remote pages. The plugin does not upload screenshots or read account keys.
 
-Composer delivery uses DSH's current paste/drop DOM behavior; version changes may require adaptation. Report DSH/Windows versions, monitor scaling, RDP use and the error message in [Issues](https://github.com/TangerineSplendor/dsh-screenshot/issues). Do not attach account settings or private screenshots.
+Composer delivery uses DSH's current paste/drop DOM behavior; version changes may require adaptation. Report DSH/Windows versions, monitor scaling, RDP use and the error message in [Issues](https://github.com/TangerineSplendor/dsh-plugin-live-shot/issues). Do not attach account settings or private screenshots.
 
 ## Development
 

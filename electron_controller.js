@@ -48,7 +48,7 @@ export function apply(ctx) {
     lastError = error?.message || String(error);
     console.error('[dsh-shot]', lastError);
     end();
-    if (Notification.isSupported()) new Notification({ title: 'DSH screenshot', body: lastError }).show();
+    if (Notification.isSupported()) new Notification({ title: 'dsh-plugin-live-shot', body: lastError }).show();
   }
   async function makeWindow() {
     if (win && !win.isDestroyed()) return;

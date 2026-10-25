@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "框选截图",
+    "title": "dsh-plugin-live-shot",
     "description": "框选屏幕区域，直接把截图放进输入框草稿，不用再复制粘贴。"
   }
 }

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Region Screenshot",
+    "title": "dsh-plugin-live-shot",
     "description": "Take a region screenshot and drop it straight into the composer draft."
   }
 }
