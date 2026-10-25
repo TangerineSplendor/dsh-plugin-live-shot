@@ -59,3 +59,13 @@ DSH Market 现有收录仍有效，仓库 dsh-plugin topic 已核对保留，新
 市场最终查询快照仍为 generatedAt 2026-10-24T22:38:33.47Z，仅有旧名 dsh-screenshot，尚不能宣布市场名称已完成统一。
 
 收工补正：beta 标签切换的独立安全验证超时，命令已结束，旧授权链接已失效；latest 仍为 beta.6、beta 暂为 beta.5，beta.6 发布和默认安装不受影响。市场迁移稿已备好但尚未提交成功，暂等自动采集或后续提交确认。
+
+## 后续同步（2026-10-25）
+
+用户已选择先等市场自动采集，不重复提交收录或迁移请求。当前实际工作流为每日北京时间 03:00 主采集并部署，06:00 兜底检查补跑（主档 12 小时内已有成功则跳过），以工作流为准：
+- https://github.com/2BingLing/dsh-market/blob/master/.github/workflows/collect-and-deploy.yml
+- https://github.com/2BingLing/dsh-market/blob/master/.github/workflows/collect-backup.yml
+
+自动采集不代表改名会立即显示；旧条目缓存和任务运行状态仍可能延迟迁移。npm beta 标签已重新发起安全验证，目标与已发布 latest 一致为 beta.6，不重复发布包。
+
+最终结果：用户完成本次 npm 验证，dist-tag 命令成功，公开注册表 /-/package/dsh-plugin-live-shot/dist-tags 实查 latest 与 beta 均已为 0.7.0-beta.6。没有重复发布包或修改本机安装。市场仍遵照用户选择等待自动采集。
